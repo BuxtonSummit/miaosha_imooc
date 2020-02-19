@@ -7,7 +7,9 @@ import com.Buxton.domain.ItemStock;
 import com.Buxton.error.BusinessException;
 import com.Buxton.error.EmBusinessError;
 import com.Buxton.service.ItemService;
+import com.Buxton.service.PromoService;
 import com.Buxton.service.model.ItemModel;
+import com.Buxton.service.model.PromoModel;
 import com.Buxton.validator.ValidationResult;
 import com.Buxton.validator.ValidatorImpl;
 import org.springframework.beans.BeanUtils;
@@ -34,6 +36,9 @@ public class ItemServiceImpl implements ItemService {
 
     @Autowired
     private ItemStockMapper itemStockMapper;
+
+    @Autowired
+    private PromoService promoService;
 
     @Transactional
     @Override
@@ -80,8 +85,13 @@ public class ItemServiceImpl implements ItemService {
         ItemStock itemStock = itemStockMapper.selectByItemId(item.getId());
 
         //DataObject-->Model
-
         ItemModel itemModel = convertModelFromDataObject(item, itemStock);
+
+        //获取活动商品信息
+        PromoModel promoModel = promoService.getPromoByItemId(itemModel.getId());
+        if (promoModel != null && promoModel.getStatus() != 3) {
+            itemModel.setPromoModel(promoModel);
+        }
 
         return itemModel;
     }
@@ -90,9 +100,9 @@ public class ItemServiceImpl implements ItemService {
     @Transactional
     public boolean decreaseStock(Integer itemId, Integer amount) {
         int affectedRow = itemStockMapper.decreaseStock(itemId, amount);
-        if (affectedRow > 0){
+        if (affectedRow > 0) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }
@@ -100,7 +110,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     @Transactional
     public void increaseSales(Integer itemId, Integer amount) {
-        itemMapper.increaseSales(itemId,amount);
+        itemMapper.increaseSales(itemId, amount);
     }
 
     private Item convertItemFromItemModel(ItemModel itemModel) {
