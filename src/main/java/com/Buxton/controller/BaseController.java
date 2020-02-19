@@ -23,9 +23,9 @@ public class BaseController {
 
 
     //定义exceptionhandler解决未被controller层吸收的exception
-//    @ExceptionHandler(Exception.class)
-//    @ResponseStatus(HttpStatus.OK)
-//    @ResponseBody
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
     public Object handlerException(HttpServletRequest request, Exception ex) {
         Map<String, Object> responseData = new HashMap<>();
         if (ex instanceof BusinessException) {
