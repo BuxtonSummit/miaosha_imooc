@@ -15,14 +15,14 @@ import java.util.Map;
 /**
  * @Author Buxton
  * @Date 2020-02-16 16:59
- * @Description
+ * @Description WEB层通用类
  */
 public class BaseController {
 
     public static final String CONTENT_TYPE_FORMED = "application/x-www-form-urlencoded";
 
 
-    //定义exceptionhandler解决未被controller层吸收的exception
+    //定义ExceptionHandler解决未被Controller层吸收的Exception
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody

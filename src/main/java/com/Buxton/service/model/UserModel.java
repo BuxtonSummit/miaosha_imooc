@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 /**
  * @Author Buxton
  * @Date 2020-02-16 13:38
- * @Description
+ * @Description 用户领域模型
  */
 public class UserModel {
 
@@ -21,8 +21,8 @@ public class UserModel {
     private Byte gender;
 
     @NotNull(message = "年龄不能不填写")
-    @Min(value = 0,message = "年龄必须大于0")
-    @Max(value = 150,message = "年龄必须小于150")
+    @Min(value = 0, message = "年龄必须大于0")
+    @Max(value = 150, message = "年龄必须小于150")
     private Integer age;
 
     @NotBlank(message = "手机号不能为空")

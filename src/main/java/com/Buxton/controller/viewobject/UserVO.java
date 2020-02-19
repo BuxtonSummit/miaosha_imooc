@@ -3,7 +3,7 @@ package com.Buxton.controller.viewobject;
 /**
  * @Author Buxton
  * @Date 2020-02-16 14:17
- * @Description
+ * @Description 用户前端UI反馈类
  */
 public class UserVO {
     private Integer id;

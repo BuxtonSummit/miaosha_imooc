@@ -60,12 +60,12 @@ public class UserServiceImpl implements UserService {
             throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
         }*/
         ValidationResult result = validator.validate(userModel);
-        if (result.isHasErrors()){
-            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR,result.getErrMsg());
+        if (result.isHasErrors()) {
+            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, result.getErrMsg());
         }
 
 
-        //实现model->dataObject方法
+        //实现Model->DataObject方法
         User user = convertFromModel(userModel);
         try {
             userMapper.insertSelective(user);
@@ -92,13 +92,13 @@ public class UserServiceImpl implements UserService {
 
         UserModel userModel = convertFromDataObject(user, userPassword);
         //对比用户信息内加密的密码是否和传输进来的密码相匹配
-        if(!StringUtils.equals(encrptPassword,userModel.getEncrptPassword())){
+        if (!StringUtils.equals(encrptPassword, userModel.getEncrptPassword())) {
             throw new BusinessException(EmBusinessError.USER_LOGIN_FAIL);
         }
         return userModel;
     }
 
-
+    //UserModel数据传入到User中
     private User convertFromModel(UserModel userModel) {
         if (userModel == null) {
             return null;
@@ -109,6 +109,7 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    //UserModel数据传入到UserPassword中
     private UserPassword convertPasswordFromModel(UserModel userModel) {
         if (userModel == null) {
             return null;
@@ -120,7 +121,7 @@ public class UserServiceImpl implements UserService {
         return userPassword;
     }
 
-
+    //User和UserPassword数据传入到UserModel中
     private UserModel convertFromDataObject(User user, UserPassword userPassword) {
         if (user == null) {
             return null;

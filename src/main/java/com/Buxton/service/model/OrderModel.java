@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 /**
  * @Author Buxton
  * @Date 2020-02-17 20:28
- * @Description
+ * @Description 订单领域模型
  */
 public class OrderModel {
 
@@ -18,13 +18,13 @@ public class OrderModel {
     //若非空，则表示是以秒杀商品方式下单
     private Integer promoId;
 
-    //购买商品的单价 若promoId非空则表示秒杀商品价格
+    //购买商品的单价 若PromoId非空则表示秒杀商品价格
     private BigDecimal itemPrice;
 
     //购买数量
     private Integer amount;
 
-    //购买金额 若promoId非空则表示秒杀商品价格
+    //购买金额 若PromoId非空则表示秒杀商品价格
     private BigDecimal orderPrice;
 
     public String getId() {

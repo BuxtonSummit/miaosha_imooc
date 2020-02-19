@@ -7,5 +7,6 @@ package com.Buxton.service;
  */
 public interface SequenceService {
 
+    //获取Sequence
     String getSequence();
 }

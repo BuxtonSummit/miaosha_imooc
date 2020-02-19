@@ -22,7 +22,7 @@ import java.util.Random;
 /**
  * @Author Buxton
  * @Date 2020-02-16 13:24
- * @Description
+ * @Description 用户 WEB控制器
  */
 @Controller("user")
 @RequestMapping("/user")
@@ -46,7 +46,7 @@ public class UserController extends BaseController {
         //用户登录服务 校验用户登录是否合法
         UserModel userModel = userService.validateLogin(telphone, this.EncodeByMD5(password));
 
-        //将登录凭证加入到用户登录成功的session内
+        //将登录凭证加入到用户登录成功的Session内
         this.httpServletRequest.getSession().setAttribute("IS_LOGIN", true);
         this.httpServletRequest.getSession().setAttribute("LOGIN_USER", userModel);
 
@@ -63,7 +63,7 @@ public class UserController extends BaseController {
                                      @RequestParam(name = "age") Integer age,
                                      @RequestParam(name = "password") String password) throws BusinessException, UnsupportedEncodingException, NoSuchAlgorithmException {
 
-        //验证手机号和对应的otpCode相符合
+        //验证手机号和对应的OtpCode相符合
         String inSessionOtpCode = (String) this.httpServletRequest.getSession().getAttribute(telphone);
         if (!StringUtils.equals(otpCode, inSessionOtpCode)) {
             throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, "短信验证码不合法");
@@ -100,7 +100,7 @@ public class UserController extends BaseController {
         randomInt += 10000;
         String otpCode = String.valueOf(randomInt);
 
-        //将OTP验证码同对应用户的手机号关联 使用httpSession的方式绑定手机号与OTPCODE
+        //将OTP验证码同对应用户的手机号关联 使用HttpSession的方式绑定手机号与OTPCODE
         httpServletRequest.getSession().setAttribute(telphone, otpCode);
 
         //将OTP验证码通过短信通道发送给用户（省略）
@@ -109,11 +109,11 @@ public class UserController extends BaseController {
         return CommonReturnType.create(null);
     }
 
-
+    //获取用户信息
     @RequestMapping("/get")
     @ResponseBody
     public CommonReturnType getUser(@RequestParam(name = "id") Integer id) throws BusinessException {
-        //调用service服务获取对应id的用户对象并返回给前端
+        //调用Service服务获取对应Id的用户对象并返回给前端
         UserModel userModel = userService.getUserById(id);
 
         //若获取的对应用户信息不存在
@@ -121,13 +121,14 @@ public class UserController extends BaseController {
             throw new BusinessException(EmBusinessError.USER_NOT_EXIST);
         }
 
-        //将核心领域模型用户对象转化为可供UI使用的viewobject
+        //将核心领域模型用户对象转化为可供UI使用的ViewObject
         UserVO userVO = convertFromModel(userModel);
 
         //返回通用对象
         return CommonReturnType.create(userVO);
     }
 
+    //UserModel数据传入到UserVO中
     private UserVO convertFromModel(UserModel userModel) {
         if (userModel == null) {
             return null;

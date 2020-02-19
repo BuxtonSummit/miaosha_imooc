@@ -113,6 +113,7 @@ public class ItemServiceImpl implements ItemService {
         itemMapper.increaseSales(itemId, amount);
     }
 
+    //ItemModel数据传入到Item中
     private Item convertItemFromItemModel(ItemModel itemModel) {
         if (itemModel == null) {
             return null;
@@ -122,6 +123,7 @@ public class ItemServiceImpl implements ItemService {
         return item;
     }
 
+    //ItemModel数据传入到ItemStock中
     private ItemStock convertItemStockFromItemModel(ItemModel itemModel) {
         if (itemModel == null) {
             return null;
@@ -132,6 +134,7 @@ public class ItemServiceImpl implements ItemService {
         return itemStock;
     }
 
+    //Item和ItemStock数据传入到ItemModel中
     private ItemModel convertModelFromDataObject(Item item, ItemStock itemStock) {
         ItemModel itemModel = new ItemModel();
 

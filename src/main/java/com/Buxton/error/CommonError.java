@@ -3,7 +3,7 @@ package com.Buxton.error;
 /**
  * @Author Buxton
  * @Date 2020-02-16 15:37
- * @Description
+ * @Description 返回错误信息接口
  */
 public interface CommonError {
 

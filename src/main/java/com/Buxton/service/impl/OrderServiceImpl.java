@@ -2,14 +2,12 @@ package com.Buxton.service.impl;
 
 import com.Buxton.dao.OrderMapper;
 import com.Buxton.dao.SequenceMapper;
-import com.Buxton.domain.Item;
 import com.Buxton.domain.Order;
 import com.Buxton.domain.Sequence;
 import com.Buxton.error.BusinessException;
 import com.Buxton.error.EmBusinessError;
 import com.Buxton.service.ItemService;
 import com.Buxton.service.OrderService;
-import com.Buxton.service.SequenceService;
 import com.Buxton.service.UserService;
 import com.Buxton.service.model.ItemModel;
 import com.Buxton.service.model.OrderModel;
@@ -23,12 +21,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 /**
  * @Author Buxton
  * @Date 2020-02-18 10:39
- * @Description
+ * @Description 订单实现类
  */
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -65,12 +62,12 @@ public class OrderServiceImpl implements OrderService {
         }
 
         //校验活动信息
-        if (promoId != null){
+        if (promoId != null) {
             //校验对应活动是否存在这个使用商品
-            if (promoId.intValue() != itemModel.getPromoModel().getId()){
+            if (promoId.intValue() != itemModel.getPromoModel().getId()) {
                 throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, "活动信息不正确");
                 //校验活动是否正在进行中
-            }else if (itemModel.getPromoModel().getStatus().intValue() != 2){
+            } else if (itemModel.getPromoModel().getStatus().intValue() != 2) {
                 throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, "活动还没开始");
             }
         }
@@ -85,9 +82,9 @@ public class OrderServiceImpl implements OrderService {
         orderModel.setUserId(userId);
         orderModel.setItemId(itemId);
         orderModel.setAmount(amount);
-        if (promoId != null){
+        if (promoId != null) {
             orderModel.setItemPrice(itemModel.getPromoModel().getPromoItemPrice());
-        }else {
+        } else {
             orderModel.setItemPrice(itemModel.getPrice());
         }
         orderModel.setPromoId(promoId);
@@ -99,12 +96,13 @@ public class OrderServiceImpl implements OrderService {
         orderMapper.insertSelective(order);
 
         //商品销量
-        itemService.increaseSales(itemId,amount);
+        itemService.increaseSales(itemId, amount);
         //返回前端
 
         return orderModel;
     }
 
+    //这里存在订单号生成方法虽然加了@Transactional注解，但是并不会生效，Spring AOP代理，对于private非接口方法，事务不会起效的遗留问题
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     String generateOrderNo() {
         //订单号16位
@@ -137,6 +135,7 @@ public class OrderServiceImpl implements OrderService {
         return stringBuilder.toString();
     }
 
+    //OrderModel数据传入到Order中
     private Order convertFromOrderModel(OrderModel orderModel) {
         if (orderModel == null) {
             return null;

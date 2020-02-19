@@ -3,7 +3,7 @@ package com.Buxton.response;
 /**
  * @Author Buxton
  * @Date 2020-02-16 15:24
- * @Description
+ * @Description 定义一个返回通用提示的类
  */
 public class CommonReturnType {
 
@@ -15,11 +15,11 @@ public class CommonReturnType {
     private Object data;
 
     //定义一个通用的创建方法
-    public static CommonReturnType create(Object result){
-        return CommonReturnType.create(result,"success");
+    public static CommonReturnType create(Object result) {
+        return CommonReturnType.create(result, "success");
     }
 
-    public static CommonReturnType create(Object result, String status){
+    public static CommonReturnType create(Object result, String status) {
         CommonReturnType type = new CommonReturnType();
         type.setStatus(status);
         type.setData(result);

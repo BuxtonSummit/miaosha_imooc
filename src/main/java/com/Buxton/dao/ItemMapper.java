@@ -58,5 +58,5 @@ public interface ItemMapper {
      */
     int updateByPrimaryKey(Item record);
 
-    int increaseSales(@Param("id")Integer id,@Param("amount")Integer amount);
+    int increaseSales(@Param("id") Integer id, @Param("amount") Integer amount);
 }

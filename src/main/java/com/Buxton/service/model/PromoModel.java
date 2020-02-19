@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 /**
  * @Author Buxton
  * @Date 2020-02-19 11:00
- * @Description
+ * @Description 秒杀领域模型
  */
 public class PromoModel {
     private Integer id;

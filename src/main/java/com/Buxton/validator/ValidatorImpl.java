@@ -11,7 +11,7 @@ import java.util.Set;
 /**
  * @Author Buxton
  * @Date 2020-02-17 11:34
- * @Description
+ * @Description 校验器现实类
  */
 @Component
 public class ValidatorImpl implements InitializingBean {
@@ -19,16 +19,16 @@ public class ValidatorImpl implements InitializingBean {
     private Validator validator;
 
     //实现校验方法并返回校验结果
-    public ValidationResult validate(Object bean){
+    public ValidationResult validate(Object bean) {
         ValidationResult result = new ValidationResult();
         Set<ConstraintViolation<Object>> constraintViolationSet = validator.validate(bean);
-        if (constraintViolationSet.size()>0){
+        if (constraintViolationSet.size() > 0) {
             //有错误
             result.setHasErrors(true);
-            constraintViolationSet.forEach(constraintViolation->{
+            constraintViolationSet.forEach(constraintViolation -> {
                 String errMsg = constraintViolation.getMessage();
                 String propertyName = constraintViolation.getPropertyPath().toString();
-                result.getErrorMsgMap().put(propertyName,errMsg);
+                result.getErrorMsgMap().put(propertyName, errMsg);
             });
         }
         return result;
@@ -37,7 +37,7 @@ public class ValidatorImpl implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
 
-        //将hibernate validator通过工厂的初始化方式使其实例化
+        //将Hibernate Validator通过工厂的初始化方式使其实例化
         this.validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     }

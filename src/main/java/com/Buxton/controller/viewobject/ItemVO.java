@@ -1,13 +1,11 @@
 package com.Buxton.controller.viewobject;
 
-import org.joda.time.DateTime;
-
 import java.math.BigDecimal;
 
 /**
  * @Author Buxton
  * @Date 2020-02-17 15:33
- * @Description
+ * @Description 商品前端UI反馈类
  */
 public class ItemVO {
     private Integer id;

@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @Author Buxton
  * @Date 2020-02-18 15:42
- * @Description
+ * @Description 订单 WEB控制器
  */
 @Controller("/order")
 @RequestMapping("/order")
@@ -29,11 +29,11 @@ public class OrderController extends BaseController {
     private HttpServletRequest httpServletRequest;
 
     //封装下单请求
-    @RequestMapping(value = "/createorder",method = RequestMethod.POST,consumes = CONTENT_TYPE_FORMED)
+    @RequestMapping(value = "/createorder", method = RequestMethod.POST, consumes = CONTENT_TYPE_FORMED)
     @ResponseBody
     public CommonReturnType createOrder(@RequestParam(name = "itemId") Integer itemId,
                                         @RequestParam(name = "amount") Integer amount,
-                                        @RequestParam(name = "promoId",required = false) Integer promoId) throws BusinessException {
+                                        @RequestParam(name = "promoId", required = false) Integer promoId) throws BusinessException {
 
         Boolean isLogin = (Boolean) httpServletRequest.getSession().getAttribute("IS_LOGIN");
         if (isLogin == null || !isLogin.booleanValue()) {

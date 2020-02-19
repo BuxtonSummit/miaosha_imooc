@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 /**
  * @Author Buxton
  * @Date 2020-02-17 14:05
- * @Description
+ * @Description 商品领域模型
  */
 public class ItemModel {
     //商品编号
@@ -18,7 +18,7 @@ public class ItemModel {
     private String title;
     //价格
     @NotNull(message = "商品价格不能为空")
-    @Min(value = 0,message = "商品价格必须大于0")
+    @Min(value = 0, message = "商品价格必须大于0")
     private BigDecimal price;
     //库存
     @NotNull(message = "库存不能为空")
